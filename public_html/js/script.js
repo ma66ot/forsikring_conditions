@@ -64,11 +64,10 @@ function rearange_elements(element){
             
         },
         stop: function(){
-            value1 = $(this).children('#prop_select').val();
-            value2 = $(this).children('#op_select').val();
-            value3 = $(this).children('#kaka').val();
+            //value1 = $(this).children('#prop_select').val();
+            //value2 = $(this).children('#op_select').val();
+            //value3 = $(this).children('#kaka').val();
             $(this).remove();
-            $(element).append(value1+value2+value3)
         }
     });
 }
