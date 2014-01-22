@@ -1,0 +1,79 @@
+/* 
+    Document   : style
+    Created on : 21.1.2014, 21:19:55
+    Author     : metro
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+.condition_box{
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #6666ff;
+    background-color: #9999ff;
+}
+.condition_box *{
+    padding: 0;
+    margin: 0;
+}
+.condition_box .dragable{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -5px;
+    right: -5px;
+    background-color: #ff0033;
+}
+.workspace{
+    position: relative;
+    border: 1px solid #cccccc;
+    height: 500px;
+    margin-top: 30px;
+}
+.workspace .add{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 10px;
+    left: 10px;
+    background-color: #cccccc;
+    font-size: 14px;
+    text-align: center;
+    line-height: 18px;
+    cursor: pointer;
+    z-index: 1000;
+}
+.workspace .holder{
+    padding-left: 10px;
+    height: inherit;
+}
+.workspace .holder .column{
+    position: relative;
+    border: 2px dashed #ffffcc;
+    height: 480px;
+    width: 40px;
+    float:left;
+    margin: 10px 10px 0px 0px;
+}
+.workspace .holder .column .del{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: -5px;
+    right: -5px;
+    line-height: 15px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #ff6666;
+    cursor: pointer;
+    display: none;
+}
+.workspace .holder .column:hover .del{
+    display: block;
+}
+
