@@ -1,7 +1,5 @@
 $(document).ready(function() {
     
-    set_column_width();
-
     $('.add').on('click', function() {
         add_column();
     });
@@ -12,22 +10,14 @@ $(document).ready(function() {
     $('.holder').on('click','.dragable', function() {
         remove_column(this);
     });
-    
-    $('.condition_box').draggable({
-        start: function(){
-            
-        },
-        stop: function(){
-            
-        }
-    });
-    
 });
 
 function set_column_width() {
     var num_columns = count_columns();
     var w_width = $('.holder').width();
     var calculated = w_width / num_columns - 16;
+    
+    $('.one').draggable();
     
     $('.column').each(function() {
         $(this).css('width', calculated);
@@ -77,7 +67,8 @@ function rearange_elements(element){
             value1 = $(this).children('#prop_select').val();
             value2 = $(this).children('#op_select').val();
             value3 = $(this).children('#kaka').val();
-            $(this).remove();   
+            $(this).remove();
+            $(element).append(value1+value2+value3)
         }
     });
 }
