@@ -16,7 +16,7 @@ $(document).ready(function() {
         remove_column(this);
     });
     
-    $('.result').on('click', function() {
+    $('.get').on('click', function() {
         update_string();
     });
 });

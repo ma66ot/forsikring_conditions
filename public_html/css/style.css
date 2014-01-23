@@ -80,6 +80,17 @@ root {
 .workspace .holder .column:hover .del{
     display: block;
 }
+.get{
+    margin-top: 30px;
+    font-family: arial;
+    width: 300px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #cccccc;
+    cursor: pointer;
+}
 .result{
     margin-top: 20px;
     min-height: 30px;
