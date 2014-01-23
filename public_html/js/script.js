@@ -11,8 +11,13 @@ $(document).ready(function() {
     $('.holder').on('click','.column .del', function() {
         remove_column(this);
     });
+    
     $('.holder').on('click','.dragable', function() {
         remove_column(this);
+    });
+    
+    $('.result').on('click', function() {
+        update_string();
     });
 });
 
@@ -55,7 +60,34 @@ function remove_column(element){
 }
 
 function update_string() {
-
+    var cond_string = '{string:{';
+    
+    var n = 0;
+    var m = 0;
+    $('.column').each(function(){
+        var i = $(this).children('.condition_box').length;
+        $(this).children('.condition_box').each(function(){
+            //$(this).attr('id','box_'+n+'_'+m);
+            var part = '#box_'+n+'_'+m;
+            var condition = $(part);
+            var a = condition.children('#prop_select').val();
+            var b = condition.children('#op_select').val();
+            var c = condition.children('#kaka').val();
+            cond_string += part+':{';
+            cond_string += 'a:'+a+',';
+            cond_string += 'b:'+b+',';
+            cond_string += 'c:'+c;
+            cond_string += '},';
+            m+=1;
+            if(m == i){
+                m = 0;
+            }
+        });
+        n+=1;
+    });
+    cond_string += '}}';
+    
+    $('.result').html(cond_string);
 }
 
 function count_columns() {
