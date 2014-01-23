@@ -60,7 +60,7 @@ function remove_column(element){
 }
 
 function update_string() {
-    var cond_string = '{string:{';
+    var cond_string = '{"string":{';
     
     var n = 0;
     var m = 0;
@@ -68,15 +68,15 @@ function update_string() {
         var i = $(this).children('.condition_box').length;
         $(this).children('.condition_box').each(function(){
             //$(this).attr('id','box_'+n+'_'+m);
-            var part = '#box_'+n+'_'+m;
-            var condition = $(part);
+            var part = 'box_'+n+'_'+m;
+            var condition = $('#'+part);
             var a = condition.children('#prop_select').val();
             var b = condition.children('#op_select').val();
             var c = condition.children('#kaka').val();
-            cond_string += part+':{';
-            cond_string += 'a:'+a+',';
-            cond_string += 'b:'+b+',';
-            cond_string += 'c:'+c;
+            cond_string += '"'+part+'":{';
+            cond_string += '"a":"'+a+'",';
+            cond_string += '"b":"'+b+'",';
+            cond_string += '"c":"'+c+'"';
             cond_string += '},';
             m+=1;
             if(m == i){
