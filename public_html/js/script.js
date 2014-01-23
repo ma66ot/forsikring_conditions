@@ -101,7 +101,7 @@ function add_new_form(){
     
 function rearange_elements(element){
     var form = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="'+value1+'">'+value1+'</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="'+value2+'">'+value2+'</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value="'+value3+'"><div class="dragable"></div></div>';
-    var form2 = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="Select...">Select...</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="Select...">Select...</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value=""><div class="dragable"></div></div>';
+    var form2 = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="Select...">Select...</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="Select...">Select...</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value=""></div>';
     $(element).append(form);
     
     $('.container').html('');
