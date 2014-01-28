@@ -61,7 +61,7 @@ root {
     position: absolute;
     width: 25px;
     height: 25px;
-    top: -3px;
+    top: -20px;
     left: -3px;
     background-color: #cccccc;
     font-size: 20px;
@@ -69,6 +69,14 @@ root {
     line-height: 25px;
     cursor: pointer;
     z-index: 1000;
+}
+.workspace .clean{
+    position: absolute;
+    padding: 4px;
+    top: -24px;
+    right: -3px;
+    background-color: #ff6666;
+    cursor: pointer;
 }
 .workspace .holder{
     padding-left: 10px;
@@ -115,8 +123,16 @@ root {
 .workspace .holder .column:last-child .ori{
     display: none;
 }
-.get{
+.workspace .condition_box{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.button{
     margin-top: 30px;
+    margin-right: 30px;
+    display: inline-block;
     font-family: arial;
     width: 300px;
     line-height: 30px;
@@ -125,6 +141,9 @@ root {
     font-size: 18px;
     background-color: #cccccc;
     cursor: pointer;
+}
+.get{
+    
 }
 .result{
     margin-top: 20px;

@@ -9,6 +9,11 @@ $(document).ready(function() {
         add_column();
     });
     
+    $('.clean').on('click', function() {
+        clear_workspace();
+        //console.debug($('.holder'));
+    });
+    
     $('.holder').on('click','.column .del', function() {
         remove_column(this);
     });
@@ -19,6 +24,10 @@ $(document).ready(function() {
     
     $('.get').on('click', function() {
         update_string();
+    });
+    
+    $('.rebuild').on('click', function() {
+        rebuild_workspace();
     });
     
     $('.holder').on('click', '#enabled', function() {
@@ -66,12 +75,14 @@ function remove_column(element){
 }
 
 function update_string() {
-    var cond_string = '{"string":{';
+    var cond_string = '{"string":[{';
     
     var n = 0;
     var m = 0;
+    var all = 0;
     $('.column').each(function(){
         var i = $(this).children('.condition_box').length;
+        all += i;
         $(this).children('.condition_box').each(function(){
             //$(this).attr('id','box_'+n+'_'+m);
             var part = 'box_'+n+'_'+m;
@@ -80,21 +91,22 @@ function update_string() {
                 var a = condition.children('#prop_select').val();
                 var b = condition.children('#op_select').val();
                 var c = condition.children('#kaka').val();
-                cond_string += '"'+part+'":{';
+                cond_string += '"'+part+'":[{';
                 cond_string += '"a":"'+a+'",';
                 cond_string += '"b":"'+b+'",';
                 cond_string += '"c":"'+c+'"';
-                cond_string += '},';
+                cond_string += '}],';
+                m+=1;
             }
-            m+=1;
+            
             if(m == i){
                 m = 0;
             }
         });
         n+=1;
     });
-    cond_string += '}}';
-    
+    cond_string += '}]}';
+    cond_string = cond_string.replace(',}]}','}]}');
     $('.result').html(cond_string);
 }
 
@@ -194,4 +206,14 @@ function opacity(element){
     else{
         $(element).parent().css('opacity','1');
     }
+}
+
+function clear_workspace(){
+    $('.holder').html('');
+}
+
+function rebuild_workspace(){
+    var string = $('.result').html();
+    var result = JSON.parse(string);
+    console.debug(result.string);
 }
