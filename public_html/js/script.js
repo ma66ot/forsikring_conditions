@@ -1,6 +1,7 @@
 var value1 = 0;
 var value2 = 0;
 var value3 = 0;
+var value4 = true;
 
 $(document).ready(function() {
     
@@ -35,6 +36,7 @@ function set_column_width() {
             value1 = $(this).children('#prop_select').val();
             value2 = $(this).children('#op_select').val();
             value3 = $(this).children('#kaka').val();
+            value4 = $(this).children('#enabled').prop('checked');
         },
         stop: function(){
             renumber_conditions();
@@ -74,14 +76,16 @@ function update_string() {
             //$(this).attr('id','box_'+n+'_'+m);
             var part = 'box_'+n+'_'+m;
             var condition = $('#'+part);
-            var a = condition.children('#prop_select').val();
-            var b = condition.children('#op_select').val();
-            var c = condition.children('#kaka').val();
-            cond_string += '"'+part+'":{';
-            cond_string += '"a":"'+a+'",';
-            cond_string += '"b":"'+b+'",';
-            cond_string += '"c":"'+c+'"';
-            cond_string += '},';
+            if(condition.children('#enabled').prop('checked')==true){
+                var a = condition.children('#prop_select').val();
+                var b = condition.children('#op_select').val();
+                var c = condition.children('#kaka').val();
+                cond_string += '"'+part+'":{';
+                cond_string += '"a":"'+a+'",';
+                cond_string += '"b":"'+b+'",';
+                cond_string += '"c":"'+c+'"';
+                cond_string += '},';
+            }
             m+=1;
             if(m == i){
                 m = 0;
@@ -104,7 +108,16 @@ function add_new_form(){
 }
     
 function rearange_elements(element){
-    var form = '<div class="condition_box">\n\
+    var fill = '';
+    var opacity = '';
+    if(value4 == true){
+        fill += '<input type="checkbox" id="enabled" checked/>';
+    }
+    else{
+        fill += '<input type="checkbox" id="enabled"/>';
+        opacity = 'style="opacity:0.5;"';
+    }
+    var form = '<div class="condition_box" '+opacity+'>\n\
                     <select name="property" id="prop_select" class="property">\n\
                         <option value="'+value1+'">'+value1+'</option>\n\
                         <option value="zip">zip</option>\n\
@@ -117,7 +130,7 @@ function rearange_elements(element){
                         <option value="!=">!=</option>\n\
                     </select>\n\
                     <input id="kaka" type="text" value="'+value3+'">\n\
-                    <input type="checkbox" id="enabled" checked/>\n\
+                    '+fill+'\n\
                     <div class="dragable"></div>\n\
                     <div class="andi">AND</div>\n\
                 </div>';
@@ -135,6 +148,7 @@ function rearange_elements(element){
                         <option value="!=">!=</option>\n\
                     </select>\n\
                     <input id="kaka" type="text" value="">\n\
+                    <input id="enabled" type="hidden" checked>\n\
                 </div>';
     $(element).append(form);
     
@@ -145,6 +159,7 @@ function rearange_elements(element){
             value1 = $(this).children('#prop_select').val();
             value2 = $(this).children('#op_select').val();
             value3 = $(this).children('#kaka').val();
+            value4 = $(this).children('#enabled').prop('checked');
         },
         stop: function(){
             $(this).remove();
