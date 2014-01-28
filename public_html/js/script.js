@@ -75,14 +75,19 @@ function remove_column(element){
 }
 
 function update_string() {
-    var cond_string = '{"string":[{';
+    var cond_string = '{';
     
     var n = 0;
     var m = 0;
     var all = 0;
+    //first we go through columns
+    var cols = $('.column').length;
     $('.column').each(function(){
         var i = $(this).children('.condition_box').length;
         all += i;
+        if(i>0){
+        cond_string += '"'+n+'":[{';
+        //then we go though the boxes in the columns
         $(this).children('.condition_box').each(function(){
             //$(this).attr('id','box_'+n+'_'+m);
             var part = 'box_'+n+'_'+m;
@@ -104,9 +109,16 @@ function update_string() {
             }
         });
         n+=1;
+        if(n == cols || cols == 0){
+            cond_string += '}]';
+        }
+        else{
+            cond_string += '}],';
+        }
+    }
     });
-    cond_string += '}]}';
-    cond_string = cond_string.replace(',}]}','}]}');
+    cond_string += '}';
+    //cond_string = cond_string.replace('],}',']}');
     $('.result').html(cond_string);
 }
 
@@ -215,5 +227,11 @@ function clear_workspace(){
 function rebuild_workspace(){
     var string = $('.result').html();
     var result = JSON.parse(string);
-    console.debug(result.string);
+    //console.log(result);
+    for(var key in result){
+        console.log(key);
+        for(var key2 in result[key]){
+            console.log(result[key][key2]);
+        }
+    }
 }
