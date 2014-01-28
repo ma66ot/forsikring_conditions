@@ -15,6 +15,7 @@ root {
     padding: 10px;
     border: 1px solid #6666ff;
     background-color: #9999ff;
+    margin-bottom: 17px;
 }
 .condition_box *{
     padding: 0;
@@ -29,8 +30,26 @@ root {
     right: -5px;
     background-color: #ff0033;
 }
+.condition_box .andi{
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    bottom: -17px;
+    left: 47%;
+    background-color: #ffcc66;
+    font-family: arial;
+    line-height: 15px;
+    font-size: 13px;
+    text-align: center;
+}
+.condition_box:last-child .andi{
+    display: none;
+}
 .condition_box:hover .dragable{
     display: block;
+}
+.condition_box .dragable:hover{
+    cursor: pointer;
 }
 .workspace{
     position: relative;
@@ -58,10 +77,11 @@ root {
 .workspace .holder .column{
     position: relative;
     border: 2px dashed #FFDC73;
-    height: 480px;
+    height: 460px;
     width: 40px;
     float:left;
     margin: 10px 10px 0px 0px;
+    padding: 10px;
 }
 .workspace .holder .column .del{
     position: absolute;
@@ -79,6 +99,21 @@ root {
 }
 .workspace .holder .column:hover .del{
     display: block;
+}
+.workspace .holder .column .ori{
+    position: absolute;
+    right: -23px;
+    top: 240px;
+    width: 30px;
+    height: 30px;
+    background-color: #ffcc66;
+    line-height: 30px;
+    text-align: center;
+    z-index: 1000;
+    font-family: arial;
+}
+.workspace .holder .column:last-child .ori{
+    display: none;
 }
 .get{
     margin-top: 30px;

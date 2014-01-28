@@ -24,7 +24,7 @@ $(document).ready(function() {
 function set_column_width() {
     var num_columns = count_columns();
     var w_width = $('.holder').width();
-    var calculated = w_width / num_columns - 16;
+    var calculated = w_width / num_columns - 36;
     
     $('.one').draggable({
         start: function(){
@@ -48,7 +48,7 @@ function set_column_width() {
 }
 
 function add_column() {
-    var content = '<div class="column"><div class="del">-</div></div>';
+    var content = '<div class="column"><div class="del">-</div><div class="ori">OR</div></div>';
     $('.holder').append(content);
     set_column_width();
 }
@@ -100,7 +100,7 @@ function add_new_form(){
 }
     
 function rearange_elements(element){
-    var form = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="'+value1+'">'+value1+'</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="'+value2+'">'+value2+'</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value="'+value3+'"><div class="dragable"></div></div>';
+    var form = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="'+value1+'">'+value1+'</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="'+value2+'">'+value2+'</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value="'+value3+'"><div class="dragable"></div><div class="andi">AND</div></div>';
     var form2 = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="Select...">Select...</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="Select...">Select...</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value=""></div>';
     $(element).append(form);
     
