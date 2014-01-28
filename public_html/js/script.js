@@ -82,6 +82,7 @@ function update_string() {
     var all = 0;
     //first we go through columns
     var cols = $('.column').length;
+    console.log(cols);
     $('.column').each(function(){
         var i = $(this).children('.condition_box').length;
         all += i;
@@ -100,8 +101,14 @@ function update_string() {
                 cond_string += '"a":"'+a+'",';
                 cond_string += '"b":"'+b+'",';
                 cond_string += '"c":"'+c+'"';
-                cond_string += '}],';
+                //cond_string += '}],';
                 m+=1;
+                if(m == i || i == 0){
+                    cond_string += '}]';
+                }
+                else{
+                    cond_string += '}],';
+                }
             }
             
             if(m == i){
@@ -109,7 +116,7 @@ function update_string() {
             }
         });
         n+=1;
-        if(n == cols || cols == 0){
+        if(n== cols || i == 0){
             cond_string += '}]';
         }
         else{
