@@ -19,6 +19,10 @@ $(document).ready(function() {
     $('.get').on('click', function() {
         update_string();
     });
+    
+    $('.holder').on('click', '#enabled', function() {
+        opacity(this);
+    });
 });
 
 function set_column_width() {
@@ -100,8 +104,38 @@ function add_new_form(){
 }
     
 function rearange_elements(element){
-    var form = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="'+value1+'">'+value1+'</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="'+value2+'">'+value2+'</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value="'+value3+'"><div class="dragable"></div><div class="andi">AND</div></div>';
-    var form2 = '<div class="condition_box"><select name="property" id="prop_select" class="property"><option value="Select...">Select...</option><option value="zip">zip</option><option value="street">steet</option><option value="address">address</option><option value="city">city</option></select><select name="operation" id="op_select" class="operation"><option value="Select...">Select...</option><option value=">=">>=</option><option value="!=">!=</option></select><input id="kaka" type="text" value=""></div>';
+    var form = '<div class="condition_box">\n\
+                    <select name="property" id="prop_select" class="property">\n\
+                        <option value="'+value1+'">'+value1+'</option>\n\
+                        <option value="zip">zip</option>\n\
+                        <option value="street">steet</option>\n\
+                        <option value="address">address</option>\n\
+                        <option value="city">city</option>\n\
+                    </select><select name="operation" id="op_select" class="operation">\n\
+                        <option value="'+value2+'">'+value2+'</option>\n\
+                        <option value=">=">>=</option>\n\
+                        <option value="!=">!=</option>\n\
+                    </select>\n\
+                    <input id="kaka" type="text" value="'+value3+'">\n\
+                    <input type="checkbox" id="enabled" checked/>\n\
+                    <div class="dragable"></div>\n\
+                    <div class="andi">AND</div>\n\
+                </div>';
+    var form2 = '<div class="condition_box">\n\
+                    <select name="property" id="prop_select" class="property">\n\
+                        <option value="Select...">Select...</option>\n\
+                        <option value="zip">zip</option>\n\
+                        <option value="street">steet</option>\n\
+                        <option value="address">address</option>\n\
+                        <option value="city">city</option>\n\
+                    </select>\n\
+                    <select name="operation" id="op_select" class="operation">\n\
+                        <option value="Select...">Select...</option>\n\
+                        <option value=">=">>=</option>\n\
+                        <option value="!=">!=</option>\n\
+                    </select>\n\
+                    <input id="kaka" type="text" value="">\n\
+                </div>';
     $(element).append(form);
     
     $('.container').html('');
@@ -124,7 +158,7 @@ function renumber_conditions(){
     var m = 0;
     $('.column').each(function(){
         var i = $(this).children('.condition_box').length;
-        console.log(i);
+        //console.log(i);
         $(this).children('.condition_box').each(function(){
             $(this).attr('id','box_'+n+'_'+m);
             m+=1;
@@ -134,4 +168,15 @@ function renumber_conditions(){
         });
         n+=1;
     });
+}
+
+function opacity(element){
+    //console.log('stisk');
+    var el = $(element).prop('checked');
+    if(el == false){
+        $(element).parent().css('opacity','0.5');
+    }
+    else{
+        $(element).parent().css('opacity','1');
+    }
 }
