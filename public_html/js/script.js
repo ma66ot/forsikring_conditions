@@ -124,7 +124,7 @@ function update_string() {
         }
     });
     cond_string += '}';
-    cond_string = cond_string.replace('}]}],}]}','}]}]}]}');
+    cond_string = cond_string.replace('}]}],}]}', '}]}]}]}');
     $('.result').html(cond_string);
 }
 
@@ -230,24 +230,56 @@ function clear_workspace() {
     $('.holder').html('');
 }
 
-function rebuild_workspace() {
-    var string = $('.result').html();
-    var result = JSON.parse(string);
-    //console.log(result);
-    for (var key in result) {
-        //console.log(key);
-        for (var key2 in result[key]) {
-            console.log(result[key][key2]);
-        }
-    }
-}
-
-function empty_columns(){
-    $('.column').each(function(){
+function empty_columns() {
+    $('.column').each(function() {
         var childs = $(this).children('.condition_box').length;
-        if(childs == 0){
+        if (childs == 0) {
             $(this).remove();
             set_column_width();
         }
     });
+}
+
+function rebuild_workspace() {
+    var string = $('.result').html();
+    var result = JSON.parse(string);
+    var build_string = '';
+    //console.log(result);
+    for (var key in result) {
+        //console.log(key);
+        build_string += '<div class="column">';
+        for (var key2 in result[key]) {
+            for (var key3 in result[key][key2]) {
+                //console.log(key3);
+                var box = result[key][key2][key3][0];
+                var fill = '';
+                var check = '';
+                if(box.d == 'true'){
+                    check = 'checked';
+                }
+                else{
+                    fill = 'style="opacity:0.5;"';
+                }
+                build_string += '<div class="condition_box" id="'+key3+'" '+fill+'>\n\
+                                    <select name="property" id="prop_select" class="property">\n\
+                                        <option value="'+box.a+'">'+box.a+'</option>\n\
+                                        <option value="zip">zip</option>\n\
+                                        <option value="street">steet</option>\n\
+                                        <option value="address">address</option>\n\
+                                        <option value="city">city</option>\n\
+                                    </select>\n\
+                                    <select name="operation" id="op_select" class="operation">\n\
+                                        <option value="'+box.b+'">'+box.b+'</option>\n\
+                                        <option value=">=">>=</option>\n\
+                                        <option value="!=">!=</option>\n\
+                                    </select>\n\
+                                    <input id="kaka" type="text" value="'+box.c+'">\n\
+                                    <input id="enabled" type="checkbox" '+check+'>\n\
+                                </div>';
+            }
+        }
+        build_string += '<div class="del">-</div><div class="ori">OR</div></div>';
+    }
+    $('.holder').html(build_string);
+    set_column_width();
 }
