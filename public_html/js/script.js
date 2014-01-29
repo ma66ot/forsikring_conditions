@@ -4,32 +4,33 @@ var value3 = 0;
 var value4 = true;
 
 $(document).ready(function() {
-    
+
     $('.add').on('click', function() {
         add_column();
     });
-    
+
     $('.clean').on('click', function() {
         clear_workspace();
         //console.debug($('.holder'));
     });
-    
-    $('.holder').on('click','.column .del', function() {
+
+    $('.holder').on('click', '.column .del', function() {
         remove_column(this);
     });
-    
-    $('.holder').on('click','.dragable', function() {
+
+    $('.holder').on('click', '.dragable', function() {
         remove_column(this);
     });
-    
+
     $('.get').on('click', function() {
+        empty_columns();
         update_string();
     });
-    
+
     $('.rebuild').on('click', function() {
         rebuild_workspace();
     });
-    
+
     $('.holder').on('click', '#enabled', function() {
         opacity(this);
     });
@@ -39,25 +40,25 @@ function set_column_width() {
     var num_columns = count_columns();
     var w_width = $('.holder').width();
     var calculated = w_width / num_columns - 36;
-    
+
     $('.one').draggable({
-        start: function(){
+        start: function() {
             value1 = $(this).children('#prop_select').val();
             value2 = $(this).children('#op_select').val();
             value3 = $(this).children('#kaka').val();
             value4 = $(this).children('#enabled').prop('checked');
         },
-        stop: function(){
+        stop: function() {
             renumber_conditions();
         }
     });
-    
+
     $('.column').each(function() {
         $(this).css('width', calculated);
         $(this).droppable({
-        drop: function( event, ui ) {
-            rearange_elements(this);
-          }
+            drop: function(event, ui) {
+                rearange_elements(this);
+            }
         });
     });
 }
@@ -68,7 +69,7 @@ function add_column() {
     set_column_width();
 }
 
-function remove_column(element){
+function remove_column(element) {
     $(element).parent().remove();
     set_column_width();
     renumber_conditions();
@@ -76,56 +77,54 @@ function remove_column(element){
 
 function update_string() {
     var cond_string = '{';
-    
+
     var n = 0;
     var m = 0;
     var all = 0;
     //first we go through columns
     var cols = $('.column').length;
-    console.log(cols);
-    $('.column').each(function(){
+    $('.column').each(function() {
         var i = $(this).children('.condition_box').length;
         all += i;
-        if(i>0){
-        cond_string += '"'+n+'":[{';
-        //then we go though the boxes in the columns
-        $(this).children('.condition_box').each(function(){
-            //$(this).attr('id','box_'+n+'_'+m);
-            var part = 'box_'+n+'_'+m;
-            var condition = $('#'+part);
-            if(condition.children('#enabled').prop('checked')==true){
+        cond_string += '"' + n + '":[{';
+        if (i > 0) {
+            //then we go though the boxes in the columns
+            $(this).find('.condition_box').each(function() {
+                //$(this).attr('id','box_'+n+'_'+m);
+                var part = 'box_' + n + '_' + m;
+                var condition = $('#' + part);
+
                 var a = condition.children('#prop_select').val();
                 var b = condition.children('#op_select').val();
                 var c = condition.children('#kaka').val();
-                cond_string += '"'+part+'":[{';
-                cond_string += '"a":"'+a+'",';
-                cond_string += '"b":"'+b+'",';
-                cond_string += '"c":"'+c+'"';
+                var d = condition.children('#enabled').prop('checked');
+                cond_string += '"' + part + '":[{';
+                cond_string += '"a":"' + a + '",';
+                cond_string += '"b":"' + b + '",';
+                cond_string += '"c":"' + c + '",';
+                cond_string += '"d":"' + d + '"';
                 //cond_string += '}],';
-                m+=1;
-                if(m == i || i == 0){
+                m += 1;
+                if (m == i || i == 0) {
                     cond_string += '}]';
+                    m = 0;
                 }
-                else{
+                else {
                     cond_string += '}],';
                 }
-            }
-            
-            if(m == i){
-                m = 0;
-            }
-        });
-        n+=1;
-        if(n== cols || i == 0){
+
+            });
+        }
+        n += 1;
+        if (n == cols || i == 0) {
             cond_string += '}]';
         }
-        else{
+        else {
             cond_string += '}],';
         }
-    }
     });
     cond_string += '}';
-    //cond_string = cond_string.replace('],}',']}');
+    cond_string = cond_string.replace('}]}],}]}','}]}]}]}');
     $('.result').html(cond_string);
 }
 
@@ -134,34 +133,34 @@ function count_columns() {
     return count;
 }
 
-function add_new_form(){
-    
+function add_new_form() {
+
 }
-    
-function rearange_elements(element){
+
+function rearange_elements(element) {
     var fill = '';
     var opacity = '';
-    if(value4 == true){
+    if (value4 == true) {
         fill += '<input type="checkbox" id="enabled" checked/>';
     }
-    else{
+    else {
         fill += '<input type="checkbox" id="enabled"/>';
         opacity = 'style="opacity:0.5;"';
     }
-    var form = '<div class="condition_box" '+opacity+'>\n\
+    var form = '<div class="condition_box" ' + opacity + '>\n\
                     <select name="property" id="prop_select" class="property">\n\
-                        <option value="'+value1+'">'+value1+'</option>\n\
+                        <option value="' + value1 + '">' + value1 + '</option>\n\
                         <option value="zip">zip</option>\n\
                         <option value="street">steet</option>\n\
                         <option value="address">address</option>\n\
                         <option value="city">city</option>\n\
                     </select><select name="operation" id="op_select" class="operation">\n\
-                        <option value="'+value2+'">'+value2+'</option>\n\
+                        <option value="' + value2 + '">' + value2 + '</option>\n\
                         <option value=">=">>=</option>\n\
                         <option value="!=">!=</option>\n\
                     </select>\n\
-                    <input id="kaka" type="text" value="'+value3+'">\n\
-                    '+fill+'\n\
+                    <input id="kaka" type="text" value="' + value3 + '">\n\
+                    ' + fill + '\n\
                     <div class="dragable"></div>\n\
                     <div class="andi">AND</div>\n\
                 </div>';
@@ -182,63 +181,73 @@ function rearange_elements(element){
                     <input id="enabled" type="hidden" checked>\n\
                 </div>';
     $(element).append(form);
-    
+
     $('.container').html('');
     $('.container').append(form2);
     $('.condition_box').draggable({
-        start: function(){
+        start: function() {
             value1 = $(this).children('#prop_select').val();
             value2 = $(this).children('#op_select').val();
             value3 = $(this).children('#kaka').val();
             value4 = $(this).children('#enabled').prop('checked');
         },
-        stop: function(){
+        stop: function() {
             $(this).remove();
         }
     });
     renumber_conditions();
 }
 
-function renumber_conditions(){
+function renumber_conditions() {
     var n = 0;
     var m = 0;
-    $('.column').each(function(){
+    $('.column').each(function() {
         var i = $(this).children('.condition_box').length;
         //console.log(i);
-        $(this).children('.condition_box').each(function(){
-            $(this).attr('id','box_'+n+'_'+m);
-            m+=1;
-            if(m == i){
+        $(this).children('.condition_box').each(function() {
+            $(this).attr('id', 'box_' + n + '_' + m);
+            m += 1;
+            if (m == i) {
                 m = 0;
             }
         });
-        n+=1;
+        n += 1;
     });
 }
 
-function opacity(element){
+function opacity(element) {
     //console.log('stisk');
     var el = $(element).prop('checked');
-    if(el == false){
-        $(element).parent().css('opacity','0.5');
+    if (el == false) {
+        $(element).parent().css('opacity', '0.5');
     }
-    else{
-        $(element).parent().css('opacity','1');
+    else {
+        $(element).parent().css('opacity', '1');
     }
 }
 
-function clear_workspace(){
+function clear_workspace() {
     $('.holder').html('');
 }
 
-function rebuild_workspace(){
+function rebuild_workspace() {
     var string = $('.result').html();
     var result = JSON.parse(string);
     //console.log(result);
-    for(var key in result){
-        console.log(key);
-        for(var key2 in result[key]){
+    for (var key in result) {
+        //console.log(key);
+        for (var key2 in result[key]) {
             console.log(result[key][key2]);
         }
     }
+}
+
+function empty_columns(){
+    $('.column').each(function(){
+        var childs = $(this).children('.condition_box').length;
+        if(childs == 0){
+            $(this).remove();
+            set_column_width();
+        }
+    });
 }
