@@ -6,32 +6,39 @@ var value4 = true;
 $(document).ready(function() {
 
     $('.add').on('click', function() {
+        //renumber_conditions();
         add_column();
     });
 
     $('.clean').on('click', function() {
+        //renumber_conditions();
         clear_workspace();
         //console.debug($('.holder'));
     });
 
     $('.holder').on('click', '.column .del', function() {
+        //renumber_conditions();
         remove_column(this);
     });
 
     $('.holder').on('click', '.dragable', function() {
+        //renumber_conditions();
         remove_column(this);
     });
 
     $('.get').on('click', function() {
         empty_columns();
+        renumber_conditions();
         update_string();
     });
 
     $('.rebuild').on('click', function() {
+        //renumber_conditions();
         rebuild_workspace();
     });
 
     $('.holder').on('click', '#enabled', function() {
+        //renumber_conditions();
         opacity(this);
     });
 });
@@ -131,10 +138,6 @@ function update_string() {
 function count_columns() {
     var count = $('.column').length;
     return count;
-}
-
-function add_new_form() {
-
 }
 
 function rearange_elements(element) {
@@ -284,4 +287,15 @@ function rebuild_workspace() {
     }
     $('.holder').html(build_string);
     set_column_width();
+    $('.condition_box').draggable({
+        start: function() {
+            value1 = $(this).children('#prop_select').val();
+            value2 = $(this).children('#op_select').val();
+            value3 = $(this).children('#kaka').val();
+            value4 = $(this).children('#enabled').prop('checked');
+        },
+        stop: function() {
+            $(this).remove();
+        }
+    });
 }
