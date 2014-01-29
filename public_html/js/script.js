@@ -275,6 +275,8 @@ function rebuild_workspace() {
                                     </select>\n\
                                     <input id="kaka" type="text" value="'+box.c+'">\n\
                                     <input id="enabled" type="checkbox" '+check+'>\n\
+                                    <div class="dragable"></div>\n\
+                                    <div class="andi">AND</div>\n\
                                 </div>';
             }
         }
